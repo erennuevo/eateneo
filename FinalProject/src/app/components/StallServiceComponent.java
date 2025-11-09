@@ -38,6 +38,18 @@ public class StallServiceComponent {
 		{
 			Stall stall = makeStall("Mongch", "JSEC"); 
 			stallRepo.save(stall);
+			
+			stall = makeStall("Ondo", "JSEC"); 
+			stallRepo.save(stall);
+			
+			stall = makeStall("Day Off", "Gonzaga"); 
+			stallRepo.save(stall);
+			
+			stall = makeStall("GHE", "Gonzaga"); 
+			stallRepo.save(stall);
+			
+			stall = makeStall("Hunger Buster", "Gonzaga");
+			stallRepo.save(stall);
 		}
 	}
 
