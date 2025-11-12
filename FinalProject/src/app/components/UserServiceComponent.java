@@ -21,10 +21,14 @@ public class UserServiceComponent {
 		if (userRepo.count() == 0) {
             User user1 = new User();
             user1.setName("Hannah");
+            user1.setIdNumber("123456");
+            user1.setPhoneNumber("+639123456789");
             userRepo.save(user1);
 
             User user2 = new User();
             user2.setName("Eren");
+            user2.setIdNumber("654321");
+            user2.setPhoneNumber("+639987654321");
             userRepo.save(user2);
         }
 	}
@@ -38,9 +42,11 @@ public class UserServiceComponent {
 		 return userRepo.findByIdNumber(id);
 	 }
 	 
-	 public User addNewUser(String name) {
+	 public User addNewUser(String name, String idNumber, String phoneNumber) {
 		 User user = new User();
 	     user.setName(name);
+	     user.setIdNumber(idNumber);
+	     user.setPhoneNumber(phoneNumber);
 	     return userRepo.save(user); 
 	 }
 	 

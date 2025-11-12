@@ -2,6 +2,8 @@ package app.components;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +53,7 @@ public class ReviewServiceComponent {
         return reviews;
     }
     
+    @Transactional
     public String addReview(Review review) {
         // Validate rating
         if (review.getRating() < 1 || review.getRating() > 5) {
@@ -58,7 +61,7 @@ public class ReviewServiceComponent {
         }
 
         // Validate comment length
-        if (review.getComment() != null && review.getComment().length() >= 80) {
+        if (review.getComment() != null && review.getComment().length() <= 80) {
             throw new IllegalArgumentException("Comment must be 80 characters or less");
         }
 
