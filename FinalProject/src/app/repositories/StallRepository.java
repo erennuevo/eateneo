@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 import app.entities.Stall;
 
 @Repository
-public interface StallRepository extends JpaRepository<Stall, Long> 
-{
-	public Stall findByName(String name);
+public interface StallRepository extends JpaRepository<Stall, Long> {
+    Stall findByName(String name);
+
+    List<Stall> findByCafeteria(String cafeteria);
+
+    List<Stall> findByNameContaining(String name);
 }

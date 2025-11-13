@@ -13,6 +13,8 @@ import app.entities.User;
 import app.repositories.ReviewRepository;
 import app.repositories.UserRepository;
 import app.repositories.MealRepository;
+import app.dto.ReviewDto;
+
 
 @Component
 public class ReviewServiceComponent {
@@ -55,17 +57,14 @@ public class ReviewServiceComponent {
     
     @Transactional
     public String addReview(Review review) {
-        // Validate rating
         if (review.getRating() < 1 || review.getRating() > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5");
         }
 
-        // Validate comment length
-        if (review.getComment() != null && review.getComment().length() <= 80) {
+        if (review.getComment() != null && review.getComment().length() > 80) {
             throw new IllegalArgumentException("Comment must be 80 characters or less");
         }
 
-        // Check if Meal exists
         Long mealPk = review.getMeal() != null ? review.getMeal().getPk() : null;
         if (mealPk == null) {
             throw new IllegalArgumentException("Meal must be specified");
@@ -74,7 +73,6 @@ public class ReviewServiceComponent {
         Meal meal = mealRepo.findById(mealPk)
             .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealPk));
 
-        // Check if User exists
         String idNumber = review.getUser() != null ? review.getUser().getIdNumber() : null;
         if (idNumber == null) {
             throw new IllegalArgumentException("User must be specified");
@@ -85,16 +83,38 @@ public class ReviewServiceComponent {
             throw new IllegalArgumentException("User not found with idNumber: " + idNumber);
         }
 
-        // Set validated Meal and User to the review (optional, ensures correct references)
         review.setMeal(meal);
         review.setUser(user);
 
-        // Save review
         reviewRepo.save(review);
 
         return "Review sent!";
     }
 
+
+    @Transactional
+    public Review addReview(ReviewDto reviewDto) {
+        User user = userRepo.findByIdNumber(reviewDto.getUser());
+        if (user == null) throw new IllegalArgumentException("User not found with idNumber: " + reviewDto.getUser());
+
+        Long mealPk = reviewDto.getMeal().getPk();
+        Meal meal = mealRepo.findById(mealPk)
+                .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealPk));
+
+        if (reviewDto.getRating() < 1 || reviewDto.getRating() > 5)
+            throw new IllegalArgumentException("Rating must be between 1 and 5");
+
+        if (reviewDto.getComment() != null && reviewDto.getComment().length() > 80)
+            throw new IllegalArgumentException("Comment must be 80 characters or less");
+
+        Review review = new Review();
+        review.setUser(user);
+        review.setMeal(meal);
+        review.setRating(reviewDto.getRating());
+        review.setComment(reviewDto.getComment());
+
+        return reviewRepo.save(review);
+    }
 
 
 

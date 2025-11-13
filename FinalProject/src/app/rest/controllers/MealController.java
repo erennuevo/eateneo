@@ -18,7 +18,7 @@ public class MealController {
 	private MealServiceComponent mealComponent;
 
 	@POST
-    @Path("/recommend")
+    @Path("/getRecommendation")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Meal sendMessage(
@@ -29,4 +29,6 @@ public class MealController {
 
         return meal;
     }
+	
+	
 }

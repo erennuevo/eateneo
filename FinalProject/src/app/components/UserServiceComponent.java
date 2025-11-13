@@ -8,12 +8,18 @@ import org.springframework.stereotype.Component;
 
 import app.entities.User;
 import app.repositories.UserRepository;
+import app.components.TwilioRequests;
+import app.dto.UserDto;
+
 
 @Component
 public class UserServiceComponent {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private TwilioComponent twilioComponent;
 	
 	
 	@PostConstruct
@@ -50,6 +56,30 @@ public class UserServiceComponent {
 	     return userRepo.save(user); 
 	 }
 	 
+	 
+	   public String notifyAllUsers(String message) {
+	        List<User> users = userRepo.findAll();
+
+	        if (users.isEmpty()) {
+	            return "No users found to notify.";
+	        }
+
+	        for (User user : users) {
+	            twilioComponent.testSMS(user.getPhoneNumber(), message); 
+	        }
+
+	        return "Notification sent to all users!";
+	    }
+
+
+	   public User addNewUser(UserDto userDto) {
+		    User user = new User();
+		    user.setName(userDto.getName());
+		    user.setIdNumber(userDto.getIdNumber());
+		    user.setPhoneNumber(userDto.getPhoneNumber());
+
+		    return userRepo.save(user);
+		}
 	 
 	
 }
