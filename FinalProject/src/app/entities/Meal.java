@@ -88,6 +88,5 @@ public class Meal {
 	public String toString() {
 		return "Meal [pk=" + pk + ", name=" + name + ", mealType=" + mealType + ", cost=" + cost + ", description="
 				+ description + "]";
-	}
-
+	} 
 }

@@ -10,5 +10,5 @@ import app.entities.Cafeteria;
 @Repository
 public interface CafeteriaRepository extends JpaRepository<Cafeteria, Long> 
 {
-	public Cafeteria findByName(String name);
+	public Cafeteria findByName(String name); 
 }

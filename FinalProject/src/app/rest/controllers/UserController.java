@@ -34,6 +34,6 @@ public class UserController {
             throw new WebApplicationException("{\"error\": \"Phone number must start with +63 and be 13 digits\", \"status\": 400}", 400);
         }
 
-        return userService.addNewUser(userDto);
+        return userService.addNewUser(userDto); 
     }
 }

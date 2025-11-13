@@ -14,5 +14,5 @@ public interface MealRepository extends JpaRepository<Meal, Long>
 	public List<Meal> findByCostLessThanEqual(Integer cost);
 	public List<Meal> findByMealTypeAndCostLessThanEqual(String mealType, Integer cost);
 	public Meal findByPk(Long pk);
-	public Meal findByName(String name);
+	public Meal findByName(String name); 
 }

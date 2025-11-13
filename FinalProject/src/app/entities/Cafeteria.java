@@ -38,6 +38,6 @@ public class Cafeteria {
 	@Override
 	public String toString() {
 		return "Cafeteria [pk=" + pk + ", name=" + name + "]";
-	}
+	} 
 
 }

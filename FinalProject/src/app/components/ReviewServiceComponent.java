@@ -113,7 +113,7 @@ public class ReviewServiceComponent {
         review.setRating(reviewDto.getRating());
         review.setComment(reviewDto.getComment());
 
-        return reviewRepo.save(review);
+        return reviewRepo.save(review); 
     }
 
 

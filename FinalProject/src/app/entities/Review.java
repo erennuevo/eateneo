@@ -86,6 +86,6 @@ public class Review {
 		this.meal = meal;
 		this.rating = rating;
 		this.comment = comment;
-	}
+	} 
 	
 }

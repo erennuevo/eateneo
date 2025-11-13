@@ -50,6 +50,6 @@ public class Stall {
 	@Override
 	public String toString() {
 		return "Stall [pk=" + pk + ", name=" + name + "]";
-	}
+	} 
 
 }

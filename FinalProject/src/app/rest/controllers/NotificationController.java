@@ -16,20 +16,20 @@ public class NotificationController {
     @Autowired
     private NotificationServiceComponent notificationService;
 
-    @POST
-    @Path("/notifyAllUsers")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public NotificationResponse notifyAllUsers(NotificationRequest request) {
-        try {
-        	notificationService.notifyAllUsers(request.getMessage());
-            return new NotificationResponse(request.getMessage(), "Success");
-        } 
-        catch (Exception e) {
-        	logger.error("Error sending notifications", e);
-            return new NotificationResponse("Failed to send message", "Error");
-        }
-    }
+//    @POST
+//    @Path("/notifyAllUsers")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public NotificationResponse notifyAllUsers(NotificationRequest request) {
+//        try {
+//        	notificationService.notifyAllUsers(request.getMessage());
+//            return new NotificationResponse(request.getMessage(), "Success");
+//        } 
+//        catch (Exception e) {
+//        	logger.error("Error sending notifications", e);
+//            return new NotificationResponse("Failed to send message", "Error");
+//        }
+//    }
 
 
     public static class NotificationRequest {

@@ -61,6 +61,6 @@ public class StallServiceComponent {
 		Cafeteria cafe = cafeRepo.findByName(cafeName); 
 		stall.setCafeteria(cafe);
 		
-		return stall;
+		return stall; 
 	}
 }

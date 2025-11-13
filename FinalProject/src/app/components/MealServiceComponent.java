@@ -73,5 +73,5 @@ public class MealServiceComponent {
 		meal.setDescription(description);
 		
 		return meal;
-	}
+	} 
 }

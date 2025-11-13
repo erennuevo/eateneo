@@ -12,5 +12,5 @@ public interface StallRepository extends JpaRepository<Stall, Long> {
 
     List<Stall> findByCafeteria(String cafeteria);
 
-    List<Stall> findByNameContaining(String name);
+    List<Stall> findByNameContaining(String name); 
 }

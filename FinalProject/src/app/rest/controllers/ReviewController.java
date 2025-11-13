@@ -49,7 +49,7 @@ public class ReviewController {
         } catch (IllegalArgumentException e) {
             throw new WebApplicationException("{\"error\": \"" + e.getMessage() + "\", \"status\": 404}", 404);
         }
-    }
+    } 
 
   
 }

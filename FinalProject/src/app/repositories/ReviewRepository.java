@@ -10,6 +10,6 @@ import app.entities.User;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>{
 	 List<Review> findByMeal(Meal meal);
-	 List<Review> findByUser(User user);
+	 List<Review> findByUser(User user); 
 
 }

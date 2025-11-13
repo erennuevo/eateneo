@@ -27,7 +27,7 @@ public class MealController {
 	{
         Meal meal = mealComponent.getRecommendedMeal(mealType, cost);
 
-        return meal;
+        return meal; 
     }
 	
 	

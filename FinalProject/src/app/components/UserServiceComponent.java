@@ -56,20 +56,20 @@ public class UserServiceComponent {
 	     return userRepo.save(user); 
 	 }
 	 
-	 
-	   public String notifyAllUsers(String message) {
-	        List<User> users = userRepo.findAll();
-
-	        if (users.isEmpty()) {
-	            return "No users found to notify.";
-	        }
-
-	        for (User user : users) {
-	            twilioComponent.testSMS(user.getPhoneNumber(), message); 
-	        }
-
-	        return "Notification sent to all users!";
-	    }
+//	 
+//	   public String notifyAllUsers(String message) {
+//	        List<User> users = userRepo.findAll();
+//
+//	        if (users.isEmpty()) {
+//	            return "No users found to notify.";
+//	        }
+//
+//	        for (User user : users) {
+//	            twilioComponent.testSMS(user.getPhoneNumber(), message); 
+//	        }
+//
+//	        return "Notification sent to all users!";
+//	    }
 
 
 	   public User addNewUser(UserDto userDto) {
