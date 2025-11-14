@@ -25,6 +25,18 @@ public class MealServiceComponent {
 	
 	private Random random = new Random();
 	
+	public List<Meal> getAllMeals()
+	{
+		List<Meal> meals = mealRepo.findAll();
+		
+		if (meals.isEmpty())
+		{
+			return null;
+		}
+		
+        return meals;
+	}
+	
 	public Meal getRecommendedMeal(String mealType, Integer cost)
 	{
 		List<Meal> meals = mealRepo.findByMealTypeAndCostLessThanEqual(mealType, cost);
@@ -36,6 +48,31 @@ public class MealServiceComponent {
 		
         int randomIndex = random.nextInt(meals.size());
         return meals.get(randomIndex);
+	}
+	
+	public List<Meal> searchMeal(String name)
+	{
+		List<Meal> meals = mealRepo.findByNameContaining(name);
+		
+		if (meals.isEmpty())
+		{
+			return null;
+		}
+		
+        return meals;
+	}
+	
+	public List<Meal> getMealsByStall(String stallName)
+	{
+		Stall stall = stallRepo.findByName(stallName); 
+		List<Meal> stallMeals = mealRepo.findByStall(stall);
+		
+		if (stallMeals.isEmpty())
+		{
+			return null;
+		}
+		
+        return stallMeals;
 	}
 	
 	@PostConstruct
@@ -56,6 +93,9 @@ public class MealServiceComponent {
 			mealRepo.save(meal);
 			
 			meal = makeMeal("Spanish Latte", "drink", 110, "Classic spanish latte.", "Ondo");
+			mealRepo.save(meal);
+			
+			meal = makeMeal("Whipped Maple Matcha", "drink", 180, "Matcha with a maple syrup twist.", "Day Off"); 
 			mealRepo.save(meal);
 		}
 	}

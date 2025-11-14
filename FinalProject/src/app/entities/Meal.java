@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -26,6 +27,7 @@ public class Meal {
 	
 	@Column
 	@NotNull(message="Meal type must not be null.")
+	@Pattern(regexp="(?i)(\\W|^)(regular|snack|dessert|drink)(\\W|$)", message="Type must be regular, snack, dessert, or drink.") 
 	private String mealType;
 	
 	@Column

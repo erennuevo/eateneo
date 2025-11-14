@@ -1,5 +1,7 @@
 package app.components;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,31 @@ public class StallServiceComponent {
 	
 	@Autowired
 	private CafeteriaRepository cafeRepo;
+	
+	public List<Stall> getAllStalls()
+	{
+		List<Stall> stalls = stallRepo.findAll();
+		
+		if (stalls.isEmpty())
+		{
+			return null;
+		}
+		
+        return stalls;
+	}
+	
+	public List<Stall> getStallsByCafeteria(String cafeName)
+	{
+		Cafeteria cafe = cafeRepo.findByName(cafeName); 
+		List<Stall> stalls = stallRepo.findByCafeteria(cafe);
+		
+		if (stalls.isEmpty())
+		{
+			return null;
+		}
+		
+        return stalls;
+	}
 	
 	@PostConstruct
 	public void init()

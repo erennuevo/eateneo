@@ -1,5 +1,7 @@
 package app.rest.controllers;
 
+import java.util.List;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -17,18 +19,38 @@ public class MealController {
 	@Autowired
 	private MealServiceComponent mealComponent;
 
-	@POST
+	@GET
     @Path("/getRecommendation")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Meal sendMessage(
-            @FormParam("mealType") String mealType,
-            @FormParam("cost") Integer cost) throws Exception 
+    public Meal getRecommendation(
+            @QueryParam("mealType") String mealType,
+            @QueryParam("cost") Integer cost) throws Exception 
 	{
-        Meal meal = mealComponent.getRecommendedMeal(mealType, cost);
+        Meal reco = mealComponent.getRecommendedMeal(mealType, cost);
 
-        return meal; 
+        return reco; 
     }
 	
+	@GET
+    @Path("/searchFood")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Meal> searchFood(
+            @QueryParam("name") String name) throws Exception
+	{
+        List<Meal> searchedMeals = mealComponent.searchMeal(name);
+
+        return searchedMeals; 
+    }
 	
+	@GET
+    @Path("/getMealsByStall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Meal> getMealsByStall(
+            @QueryParam("stallName") String stallName) throws Exception
+	{
+        List<Meal> stallMeals = mealComponent.getMealsByStall(stallName);
+
+        return stallMeals; 
+    }
 }
