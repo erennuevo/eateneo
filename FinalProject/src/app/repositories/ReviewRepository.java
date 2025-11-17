@@ -11,5 +11,5 @@ import app.entities.User;
 public interface ReviewRepository extends JpaRepository<Review, Long>{
 	 List<Review> findByMeal(Meal meal);
 	 List<Review> findByUser(User user); 
-
+	 List<Review> findByMealIn(List<Meal> meals);
 }

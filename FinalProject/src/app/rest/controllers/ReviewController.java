@@ -50,6 +50,23 @@ public class ReviewController {
             throw new WebApplicationException("{\"error\": \"" + e.getMessage() + "\", \"status\": 404}", 404);
         }
     } 
+    
+    @GET
+    @Path("/getAverageOfMeal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAverageOfMeal(@QueryParam("mealId") Long mealId) {
+        String output = "The average rating for this meal is: " + reviewService.getAverageOfMeal(mealId);
+        
+        return output;
+    }
 
+    @GET
+    @Path("/getAverageOfStall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAverageOfStall(@QueryParam("stallName") String stallName) {
+    	String output = "The average rating for " + stallName + " is: " + reviewService.getAverageOfStall(stallName);
+        
+        return output;
+    }
   
 }

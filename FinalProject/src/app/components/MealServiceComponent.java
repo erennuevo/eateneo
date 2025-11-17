@@ -100,7 +100,7 @@ public class MealServiceComponent {
 		}
 	}
 
-	public Meal makeMeal(String name, String mealType, Integer cost, String description, String stallName)
+	private Meal makeMeal(String name, String mealType, Integer cost, String description, String stallName)
 	{
 		Meal meal = new Meal();
 		meal.setName(name);

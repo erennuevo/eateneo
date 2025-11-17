@@ -28,14 +28,17 @@ public class ReviewServiceComponent {
     @Autowired
     private MealRepository mealRepo;
     
-    public List<Review> getAllReviewsByMeal(Long mealPk) {
-        Meal meal = mealRepo.findById(mealPk)
-            .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealPk));
+    @Autowired
+    private MealServiceComponent mealComponent;
+    
+    public List<Review> getAllReviewsByMeal(Long mealId) {
+        Meal meal = mealRepo.findById(mealId)
+            .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealId));
 
         List<Review> reviews = reviewRepo.findByMeal(meal);
 
         if (reviews.isEmpty()) {
-            throw new IllegalArgumentException("No reviews found for meal with pk: " + mealPk);
+            throw new IllegalArgumentException("No reviews found for meal with pk: " + mealId);
         }
 
         return reviews;
@@ -65,13 +68,13 @@ public class ReviewServiceComponent {
             throw new IllegalArgumentException("Comment must be 80 characters or less");
         }
 
-        Long mealPk = review.getMeal() != null ? review.getMeal().getPk() : null;
-        if (mealPk == null) {
+        Long mealId = review.getMeal() != null ? review.getMeal().getPk() : null;
+        if (mealId == null) {
             throw new IllegalArgumentException("Meal must be specified");
         }
 
-        Meal meal = mealRepo.findById(mealPk)
-            .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealPk));
+        Meal meal = mealRepo.findById(mealId)
+            .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealId));
 
         String idNumber = review.getUser() != null ? review.getUser().getIdNumber() : null;
         if (idNumber == null) {
@@ -97,9 +100,9 @@ public class ReviewServiceComponent {
         User user = userRepo.findByIdNumber(reviewDto.getUser());
         if (user == null) throw new IllegalArgumentException("User not found with idNumber: " + reviewDto.getUser());
 
-        Long mealPk = reviewDto.getMeal().getPk();
-        Meal meal = mealRepo.findById(mealPk)
-                .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealPk));
+        Long mealId = reviewDto.getMeal().getPk();
+        Meal meal = mealRepo.findById(mealId)
+                .orElseThrow(() -> new IllegalArgumentException("Meal not found with pk: " + mealId));
 
         if (reviewDto.getRating() < 1 || reviewDto.getRating() > 5)
             throw new IllegalArgumentException("Rating must be between 1 and 5");
@@ -116,6 +119,38 @@ public class ReviewServiceComponent {
         return reviewRepo.save(review); 
     }
 
+    public Double getAverageOfMeal(Long mealId) {
+    	
+    	List<Review> reviews = getAllReviewsByMeal(mealId);
+    	
+    	int sum = 0;
+    	for (Review r : reviews) {
+    	    sum += r.getRating();
+    	}
 
+    	double average = (double) sum / reviews.size();
+    	average = Math.round(average * 100.0) / 100.0;
+    	
+    	return average;
+    }
+    
+    public Double getAverageOfStall(String stallName) {
+
+    	List<Meal> meals = mealComponent.getMealsByStall(stallName);
+        List<Review> reviews = reviewRepo.findByMealIn(meals);
+
+        int sum = 0;
+        for (Review r : reviews) {
+            sum += r.getRating();
+        }
+
+        double average = (double) sum / reviews.size();
+        average = Math.round(average * 100.0) / 100.0;
+
+        return average;
+    }
+
+    
+    
 
 }

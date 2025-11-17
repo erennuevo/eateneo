@@ -25,7 +25,7 @@ public class Review {
 	private User user;
 	
 	@ManyToOne
-    @JoinColumn(name = "meal_id", nullable = false)
+	@JoinColumn(name = "meal_id", nullable = false)
 	private Meal meal;
 	
 	@Range(min = 1, max=5)
